@@ -1,4 +1,4 @@
-package Server;
+package ex01.Server;
 
 import java.io.File;
 import java.io.FileInputStream;

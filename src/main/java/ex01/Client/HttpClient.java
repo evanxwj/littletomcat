@@ -1,4 +1,4 @@
-package Client;
+package ex01.Client;
 
 import util.ConnectUtil;
 
