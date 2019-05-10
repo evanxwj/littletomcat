@@ -1,7 +1,5 @@
 package ex01.Client;
 
-import util.ConnectUtil;
-
 import java.io.*;
 import java.net.Socket;
 
