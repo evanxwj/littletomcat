@@ -31,3 +31,5 @@ src/test/
 target/generated-sources/
 /target/
 !/src/main/resources/
+/.gitignore
+!/webroot/PrimitiveServlet.class
