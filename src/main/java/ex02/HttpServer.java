@@ -1,9 +1,5 @@
 package ex02;
 
-import ex01.Server.Request;
-import ex01.Server.Response;
-
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -13,8 +9,6 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class HttpServer {
-
-    public static final String WEB_ROOT = System.getProperty("user.dir") + File.separator + "webroot";
 
     private static final String SHUTDOWN_COMMAND = "/SHUTDOWN";
 
@@ -54,11 +48,12 @@ public class HttpServer {
                 // a static resource
                 // a request for a servlet begins with "/servlet"
                 if (request.getUri().startsWith("/servlet/")) {
-
+                    ServletProcessor processor = new ServletProcessor();
+                    processor.process(request, response);
+                } else {
+                    StaticResourceProcessor processor = new StaticResourceProcessor();
+                    processor.process(request, response);
                 }
-
-                response.sendStaticResource();
-
                 socket.close();
 
                 // check if the previous URI is a shutdown command
