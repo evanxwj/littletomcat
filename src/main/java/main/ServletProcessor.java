@@ -1,5 +1,7 @@
-package ex02;
+package main;
 
+
+import connect.*;
 
 import javax.servlet.Servlet;
 import java.io.File;
@@ -10,7 +12,7 @@ import java.net.URLStreamHandler;
 
 public class ServletProcessor {
 
-    public void process(Request request, Response response) {
+    public void process(HttpRequest request, HttpResponse response) {
         String uri = request.getUri();
         String servletName = uri.substring(uri.lastIndexOf("/") + 1);
         URLClassLoader loader = null;
@@ -18,7 +20,7 @@ public class ServletProcessor {
             // create a URLClassLoader
             URL[] urls = new URL[1];
             URLStreamHandler streamHandler = null;
-            File classPath = new File(Constants.WEB_ROOT);
+            File classPath = new File(Constants.TARGET);
             String repository = new URL("file", null, classPath.getCanonicalPath() + File.separator).toString();
             urls[0] = new URL(null, repository, streamHandler);
             loader = new URLClassLoader(urls);
@@ -27,15 +29,16 @@ public class ServletProcessor {
         }
         Class myClass = null;
         try {
-            myClass = loader.loadClass(servletName);
+            myClass = loader.loadClass("ex02." + servletName);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         Servlet servlet = null;
-
+        RequestFacade requestFacade = new RequestFacade(request);
+        ResponseFacade responseFacade = new ResponseFacade(response);
         try {
             servlet = (Servlet) myClass.newInstance();
-            servlet.service(request, response);
+            servlet.service(requestFacade, responseFacade);
         } catch (Exception e) {
             e.printStackTrace();
         } catch (Throwable e) {

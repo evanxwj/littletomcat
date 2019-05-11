@@ -1,23 +1,27 @@
-package ex02;
+package connect;
 
 import javax.servlet.*;
+import javax.servlet.http.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.security.Principal;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Locale;
 import java.util.Map;
 
-public class Request implements ServletRequest {
+public class HttpRequest implements HttpServletRequest {
     private InputStream input;
     private String uri;
 
-    public Request(InputStream input) {
+    HttpRequest(InputStream input) {
         this.input = input;
+        this.parse();
     }
 
-    public void parse() {
+    void parse() {
 
         StringBuffer request = new StringBuffer(2048);
         int i;
@@ -36,6 +40,10 @@ public class Request implements ServletRequest {
 
     }
 
+    String getUri() {
+        return uri;
+    }
+
     private String parseUri(String requestString) {
         int index1, index2;
         index1 = requestString.indexOf(' ');
@@ -47,8 +55,165 @@ public class Request implements ServletRequest {
         return null;
     }
 
-    public String getUri() {
-        return uri;
+
+    @Override
+    public String getAuthType() {
+        return null;
+    }
+
+    @Override
+    public Cookie[] getCookies() {
+        return new Cookie[0];
+    }
+
+    @Override
+    public long getDateHeader(String s) {
+        return 0;
+    }
+
+    @Override
+    public String getHeader(String s) {
+        return null;
+    }
+
+    @Override
+    public Enumeration<String> getHeaders(String s) {
+        return null;
+    }
+
+    @Override
+    public Enumeration<String> getHeaderNames() {
+        return null;
+    }
+
+    @Override
+    public int getIntHeader(String s) {
+        return 0;
+    }
+
+    @Override
+    public String getMethod() {
+        return null;
+    }
+
+    @Override
+    public String getPathInfo() {
+        return null;
+    }
+
+    @Override
+    public String getPathTranslated() {
+        return null;
+    }
+
+    @Override
+    public String getContextPath() {
+        return null;
+    }
+
+    @Override
+    public String getQueryString() {
+        return null;
+    }
+
+    @Override
+    public String getRemoteUser() {
+        return null;
+    }
+
+    @Override
+    public boolean isUserInRole(String s) {
+        return false;
+    }
+
+    @Override
+    public Principal getUserPrincipal() {
+        return null;
+    }
+
+    @Override
+    public String getRequestedSessionId() {
+        return null;
+    }
+
+    @Override
+    public String getRequestURI() {
+        return null;
+    }
+
+    @Override
+    public StringBuffer getRequestURL() {
+        return null;
+    }
+
+    @Override
+    public String getServletPath() {
+        return null;
+    }
+
+    @Override
+    public HttpSession getSession(boolean b) {
+        return null;
+    }
+
+    @Override
+    public HttpSession getSession() {
+        return null;
+    }
+
+    @Override
+    public String changeSessionId() {
+        return null;
+    }
+
+    @Override
+    public boolean isRequestedSessionIdValid() {
+        return false;
+    }
+
+    @Override
+    public boolean isRequestedSessionIdFromCookie() {
+        return false;
+    }
+
+    @Override
+    public boolean isRequestedSessionIdFromURL() {
+        return false;
+    }
+
+    @Override
+    public boolean isRequestedSessionIdFromUrl() {
+        return false;
+    }
+
+    @Override
+    public boolean authenticate(HttpServletResponse httpServletResponse) throws IOException, ServletException {
+        return false;
+    }
+
+    @Override
+    public void login(String s, String s1) throws ServletException {
+
+    }
+
+    @Override
+    public void logout() throws ServletException {
+
+    }
+
+    @Override
+    public Collection<Part> getParts() throws IOException, ServletException {
+        return null;
+    }
+
+    @Override
+    public Part getPart(String s) throws IOException, ServletException {
+        return null;
+    }
+
+    @Override
+    public <T extends HttpUpgradeHandler> T upgrade(Class<T> aClass) throws IOException, ServletException {
+        return null;
     }
 
     @Override

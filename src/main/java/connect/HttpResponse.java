@@ -1,41 +1,41 @@
-package ex02;
-
-import ex01.Server.HttpServer;
+package connect;
 
 import javax.servlet.ServletOutputStream;
-import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.Collection;
 import java.util.Locale;
 
-public class Response implements ServletResponse {
+public class HttpResponse implements HttpServletResponse {
 
     private static final int BUFFER_SIZE = 1024;
 
-    private Request request;
+    private HttpRequest request;
 
     private OutputStream output;
 
     private PrintWriter printWriter;
 
-    public Response(OutputStream output) {
+    HttpResponse(OutputStream output) {
         this.output = output;
     }
 
-    public void setRequest(Request request) {
+    void setRequest(HttpRequest request) {
         this.request = request;
     }
 
-    public void sendStaticResource() throws IOException {
+    void sendStaticResource() throws IOException {
         byte[] bytes = new byte[BUFFER_SIZE];
         FileInputStream fileInputStream = null;
         if (request.getUri() == null) {
             return;
         }
-        File file = new File(HttpServer.WEB_ROOT, request.getUri());
+        File file = new File(Constants.WEB_ROOT, request.getUri());
         if (file.exists()) {
             String successMsg = "HTTP/1.1 200 OK\r\n" +
                     "Content-Type: text/html\r\n" +
-                    "\r\n" ;
+                    "\r\n";
             output.write(successMsg.getBytes());
             fileInputStream = new FileInputStream(file);
             int ch = fileInputStream.read(bytes, 0, BUFFER_SIZE);
@@ -56,6 +56,111 @@ public class Response implements ServletResponse {
     }
 
     @Override
+    public void addCookie(Cookie cookie) {
+
+    }
+
+    @Override
+    public boolean containsHeader(String s) {
+        return false;
+    }
+
+    @Override
+    public String encodeURL(String s) {
+        return null;
+    }
+
+    @Override
+    public String encodeRedirectURL(String s) {
+        return null;
+    }
+
+    @Override
+    public String encodeUrl(String s) {
+        return null;
+    }
+
+    @Override
+    public String encodeRedirectUrl(String s) {
+        return null;
+    }
+
+    @Override
+    public void sendError(int i, String s) throws IOException {
+
+    }
+
+    @Override
+    public void sendError(int i) throws IOException {
+
+    }
+
+    @Override
+    public void sendRedirect(String s) throws IOException {
+
+    }
+
+    @Override
+    public void setDateHeader(String s, long l) {
+
+    }
+
+    @Override
+    public void addDateHeader(String s, long l) {
+
+    }
+
+    @Override
+    public void setHeader(String s, String s1) {
+
+    }
+
+    @Override
+    public void addHeader(String s, String s1) {
+
+    }
+
+    @Override
+    public void setIntHeader(String s, int i) {
+
+    }
+
+    @Override
+    public void addIntHeader(String s, int i) {
+
+    }
+
+    @Override
+    public void setStatus(int i) {
+
+    }
+
+    @Override
+    public void setStatus(int i, String s) {
+
+    }
+
+    @Override
+    public int getStatus() {
+        return 0;
+    }
+
+    @Override
+    public String getHeader(String s) {
+        return null;
+    }
+
+    @Override
+    public Collection<String> getHeaders(String s) {
+        return null;
+    }
+
+    @Override
+    public Collection<String> getHeaderNames() {
+        return null;
+    }
+
+    @Override
     public String getCharacterEncoding() {
         return null;
     }
@@ -72,8 +177,7 @@ public class Response implements ServletResponse {
 
     @Override
     public PrintWriter getWriter() throws IOException {
-        printWriter = new PrintWriter(output, true);
-        return printWriter;
+        return null;
     }
 
     @Override

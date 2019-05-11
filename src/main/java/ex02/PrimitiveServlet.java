@@ -17,6 +17,9 @@ public class PrimitiveServlet extends HttpServlet {
     public void service(ServletRequest request, ServletResponse response) throws IOException {
         System.out.println("from service");
         PrintWriter out = response.getWriter();
+        out.println("HTTP/1.1 200 OK");
+        out.println("Content-Type: text/html");
+        out.println();
         out.println("Hello. Roses are red.");
         out.print("Violets are blue.");
     }

@@ -1,8 +1,10 @@
-package ex02;
+package connect;
 
 import java.io.File;
 
 public class Constants {
 
     public static final String WEB_ROOT = System.getProperty("user.dir") + File.separator + "webroot";
+
+    public static final String TARGET = System.getProperty("user.dir") + File.separator + "target";
 }
